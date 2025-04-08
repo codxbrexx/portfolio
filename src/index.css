@@ -1,0 +1,137 @@
+/* Import fonts with corrected syntax and better performance */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Poppins:wght@100;200;300;400;500;600;700;800;900&family=EB+Garamond:wght@400;500;600;700;800&family=Montserrat:wght@100;200;300;400;500;600;700;800;900&family=Shadows+Into+Light&display=swap");
+@import "tailwindcss";
+
+@layer base {
+  html {
+    font-family: "Poppins", sans-serif;
+    color: #ffffff;
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    overflow-x: hidden;
+    background-color: var(--background);
+    min-height: 100vh;
+  }
+  
+  ::selection {
+    background-color: var(--primary);
+    color: white;
+  }
+}
+
+@layer components {
+  .menu-items {
+    @apply text-xs md:text-sm font-normal text-white relative cursor-pointer;
+    @apply after:content-[''] after:w-0 after:h-[3px]
+           after:absolute after:left-0 after:-bottom-2 after:rounded
+           after:bg-[var(--primary)] after:transition-all after:duration-300;
+    
+    /* Improved hover effect with smooth transition */
+    &:hover::after {
+      @apply w-full;
+    }
+    
+    &.active::after {
+      @apply w-full;
+    }
+  }
+  
+  .hero-img {
+    @apply w-[120px] h-[120px] md:w-[160px] md:h-[160px] 
+           bg-gradient-to-br from-slate-800 to-blue-900 
+           rounded-full border-2 border-blue-500/30
+           shadow-lg shadow-blue-500/20;
+  }
+  
+  .primary-btn {
+    @apply h-10 md:h-12 bg-[var(--primary)] text-white font-medium text-sm 
+           px-6 py-2 rounded-md border border-[var(--primary)] 
+           hover:bg-transparent hover:text-[var(--primary)] 
+           cursor-pointer transition-all duration-300
+           shadow-md shadow-blue-600/20 hover:shadow-blue-500/30
+           flex items-center justify-center gap-2;
+  }
+  
+  .input-box {
+    @apply bg-gradient-to-br from-blue-950 to-slate-900 
+           rounded-md border border-blue-800/40 px-4 py-3 
+           placeholder:text-slate-400 placeholder:text-sm mb-5 
+           focus:outline-none focus:border-[var(--primary)] focus:border-2
+           text-white transition-all duration-300;
+  }
+  
+  .ui-circle {
+    @apply w-[130px] h-[130px] md:h-[180px] md:w-[180px]
+           rounded-full border-b-2 border-sky-500
+           origin-top-left rotate-[-36deg]
+           absolute opacity-70 md:opacity-90
+           blur-[1px] transition-all duration-700;
+  }
+  
+  .card {
+    @apply bg-gradient-to-br from-[var(--cardbg)] to-blue-950/70
+           border border-blue-800/20 rounded-lg p-5
+           hover:border-blue-700/40 transition-all duration-300
+           shadow-lg shadow-black/20;
+  }
+  
+  .section-title {
+    @apply text-2xl md:text-3xl font-bold text-white 
+           mb-8 relative inline-block;
+    
+    &::after {
+      content: '';
+      @apply absolute -bottom-3 left-0 h-1 w-1/2 
+             bg-[var(--primary)] rounded-full;
+    }
+  }
+}
+
+@layer theme {
+  :root {
+    --primary: #0f9df8;
+    --background: #040b1c;
+    --cardbg: #061840;
+    --white: #fbfbfb;
+    --navbg: #0a214e;
+    --overlayBg: rgba(0, 0, 0, 0.3);
+    --gradient-1: linear-gradient(to right, #0f9df8, #2563eb);
+    --shadow-primary: 0 4px 14px rgba(15, 157, 248, 0.2);
+  }
+}
+
+/* Animation keyframes */
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
+
+.float-animation {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Responsive utilities */
+.container-custom {
+  @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--background);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--primary);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #0b7bc0;
+}
