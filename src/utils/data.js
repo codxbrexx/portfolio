@@ -82,7 +82,7 @@ export const WORK_EXPERIENCE = [
     id: "01",
     company: "TechSolutions Inc.",
     position: "Senior Frontend Developer",
-    duration: "Dec 2021 - Present",
+    duration: "june 2025 - Present",
     description:
       "Leading the development of scalable web applications using React.js and Tailwind CSS. Collaborated closely with cross-functional teams to design intuitive user interfaces, optimize performance, and implement best coding practices. Mentored junior developers, fostering a culture of continuous learning.",
   },
@@ -90,7 +90,7 @@ export const WORK_EXPERIENCE = [
     id: "02",
     company: "CodeCrafters LLC",
     position: "Frontend Developer",
-    duration: "Dec 2020 - Mar 2021",
+    duration: "Nov 2024 - Jan 2025",
     description:
       "Developed responsive web interfaces using JavaScript, React, and CSS frameworks. Worked with designers to translate wireframes into interactive features, ensuring cross-browser compatibility and performance optimization. Contributed to code reviews and agile sprint planning.",
   },
@@ -98,7 +98,7 @@ export const WORK_EXPERIENCE = [
     id: "03",
     company: "Digital Innovations Co.",
     position: "UI/UX Designer",
-    duration: "Jan 2020 - Dec 2020",
+    duration: "June 2024 - Oct 2024",
     description:
       "Designed user-centered web and mobile interfaces, focusing on enhancing user experience through intuitive layouts and modern design trends. Created wireframes, prototypes, and high-fidelity mockups while collaborating with developers to ensure design consistency in implementation.",
   },
@@ -113,9 +113,9 @@ export const ABOUT_ME_DATA = {
     careerGoals: "My career goal is to become a Full Stack Developer and work on challenging projects that will help me grow as a developer.",
 
     stats:{
-        yearsOfExperience: "6",
-        projectsCompleted: "10",
-        clientsWorkedWith: "5",
+        yearsOfExperience: "1",
+        projectsCompleted: "4",
+        clientsWorkedWith: "2",
 
     },
 };
