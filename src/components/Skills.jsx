@@ -1,135 +1,173 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { SKILLS } from '../utils/data';
+import React, { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { SKILLS } from "../utils/data";
+import { IoIosArrowDown } from "react-icons/io";
 
-const Skills = () => {
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        duration: 0.8,
-        staggerChildren: 0.1,
-      },
-    },
+const SkillBar = ({ skill, index, isVisible }) => {
+  const [animatedLevel, setAnimatedLevel] = useState(0);
+
+  useEffect(() => {
+    if (isVisible) {
+      const timer = setTimeout(() => {
+        setAnimatedLevel(skill.level);
+      }, index * 100);
+      return () => clearTimeout(timer);
+    } else {
+      setAnimatedLevel(0);
+    }
+  }, [isVisible, skill.level, index]);
+
+  const getSkillLevel = (level) => {
+    if (level >= 90) return { text: "Expert", color: "text-green-400" };
+    if (level >= 80) return { text: "Advanced", color: "text-blue-400" };
+    if (level >= 70) return { text: "Intermediate", color: "text-yellow-400" };
+    return { text: "Learning", color: "text-purple-400" };
   };
 
-  const cardVariants = {
-    hidden: { opacity: 0, y: 50, scale: 0.8 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      scale: 1,
-      transition: {
-        duration: 0.6,
-        ease: "easeOut",
-      },
-    },
-  };
+  const skillLevel = getSkillLevel(skill.level);
 
   return (
-    <motion.section 
-      id="skills" 
-      className='max-w-screen-xl px-6 mx-auto pb-20'
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, amount: 0.3 }}
-      variants={containerVariants}
+    <motion.div
+      initial={{ opacity: 0, x: -20 }}
+      animate={{ opacity: 1, x: 0 }}
+      transition={{ delay: index * 0.05, duration: 0.5 }}
+      className="mb-4 last:mb-0 group"
     >
-      <motion.div 
-        className='glass-card p-4 md:p-8'
-        whileHover={{ scale: 1.02 }}
-      >
-        <motion.h5 
-          className='section-title text-xl font-medium mb-8'
-          initial={{ opacity: 0, x: -50 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.6 }}
-        >
-          Skills & Technologies
-        </motion.h5>
-        
-        <motion.div 
-          className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6'
-          variants={containerVariants}
-        >
-          {SKILLS.map((skill, index) => (
-            <SkillsCard 
-              key={index}
-              icon={skill.Icon}
-              iconProps={skill.iconProps}
-              title={skill.name}
-              comment={skill.comment}
-              index={index}
-              variants={cardVariants}
-            />
-          ))}
-        </motion.div>
-      </motion.div>
-    </motion.section>
+      <div className="flex justify-between items-center mb-1">
+        <div className="flex items-center gap-2">
+            {skill.icon && <skill.icon className="text-[#0f9df8]" />}
+            <span className="font-medium text-blue-100/90 text-sm">
+            {skill.name}
+            </span>
+            <span className={`text-[10px] px-2 py-0.5 rounded-full ${skillLevel.color} bg-white/5 border border-white/5`}>
+                {skillLevel.text}
+            </span>
+        </div>
+        <span className="text-xs text-blue-300/80 font-mono">
+          {animatedLevel}%
+        </span>
+      </div>
+
+      <div className="relative h-1.5 bg-blue-900/30 rounded-full overflow-hidden">
+        <motion.div
+          className="absolute inset-y-0 left-0 rounded-full bg-gradient-to-r from-[#0f9df8] to-blue-400"
+          initial={{ width: "0%" }}
+          animate={{ width: `${animatedLevel}%` }}
+          transition={{ duration: 1, ease: "easeOut" }}
+        />
+        <motion.div
+          className="absolute inset-y-0 left-0 rounded-full bg-gradient-to-r from-[#0f9df8] to-blue-400 blur-sm opacity-50"
+          initial={{ width: "0%" }}
+          animate={{ width: `${animatedLevel}%` }}
+          transition={{ duration: 1, ease: "easeOut" }}
+        />
+      </div>
+    </motion.div>
   );
 };
 
-const SkillsCard = ({icon: Icon, iconProps, title, comment, index, variants}) => {
+const Skills = () => {
+  const [activeCategory, setActiveCategory] = useState(0); 
+
   return (
-    <motion.div 
-      className='card group'
-      variants={variants}
-      whileHover={{ 
-        scale: 1.05, 
-        rotateY: 5,
-        boxShadow: "0 20px 40px rgba(15, 157, 248, 0.3)"
-      }}
-      whileTap={{ scale: 0.95 }}
-    >
+    <section className="max-w-6xl mx-auto px-6 py-20">
       <motion.div 
-        className='flex items-center justify-between mb-5'
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        transition={{ delay: index * 0.1 }}
+        className="text-center mb-16"
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
       >
-        <p className='text-base font-semibold text-white group-hover:text-blue-300 transition-colors'>
-          {title}
+        <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">
+          Skills & Expertise
+        </h2>
+        <p className="text-blue-200/60 max-w-2xl mx-auto text-lg">
+          Interactive visualization of my technical skills and proficiency levels.
+          Click on categories to explore.
         </p>
-        <motion.div
-          whileHover={{ 
-            scale: 1.2, 
-            rotate: 360,
-            color: "#0f9df8"
-          }}
-          transition={{ duration: 0.5 }}
-        >
-          <Icon 
-            className='text-3xl text-[var(--primary)] group-hover:text-blue-400 transition-colors' 
-            {...iconProps}
-          />
-        </motion.div>
       </motion.div>
-      
-      <motion.p 
-        className='text-xs font-light leading-5 text-blue-100/80 group-hover:text-blue-200 transition-colors'
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        transition={{ delay: index * 0.1 + 0.2 }}
-      >
-        {comment}
-      </motion.p>
-      
-      {/* Skill level indicator */}
-      <motion.div 
-        className="mt-4 h-1 bg-blue-900/30 rounded-full overflow-hidden"
-        initial={{ scaleX: 0 }}
-        whileInView={{ scaleX: 1 }}
-        transition={{ delay: index * 0.1 + 0.4, duration: 1 }}
-      >
-        <motion.div 
-          className="h-full bg-gradient-to-r from-[var(--primary)] to-blue-400 rounded-full"
-          initial={{ width: 0 }}
-          whileInView={{ width: `${Math.random() * 40 + 60}%` }}
-          transition={{ delay: index * 0.1 + 0.6, duration: 1 }}
-        />
-      </motion.div>
-    </motion.div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {SKILLS.map((category, index) => {
+          const isActive = activeCategory === index;
+          return (
+            <motion.div
+              key={index}
+              layout
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.1 }}
+              onClick={() => setActiveCategory(isActive ? null : index)}
+              className={`
+                relative bg-[#0a0a0a]/40 backdrop-blur-md rounded-2xl border 
+                ${isActive ? 'border-[#0f9df8]/50' : 'border-white/10 hover:border-white/20'}
+                p-6 cursor-pointer transition-all duration-300 overflow-hidden
+              `}
+            >
+                <div 
+                    className={`absolute inset-0 opacity-0 transition-opacity duration-500 pointer-events-none -z-10
+                    bg-gradient-to-br ${category.color} blur-3xl`}
+                    style={{ opacity: isActive ? 0.05 : 0 }}
+                />
+
+              <div className="flex items-center justify-between mb-2">
+                <div className="flex items-center gap-4">
+                  <div className={`p-3 rounded-lg bg-gradient-to-br ${category.color} bg-opacity-10`}>
+                     <category.icon className="text-white text-xl" />
+                  </div>
+                  <h3 className="text-xl font-bold text-white">{category.title}</h3>
+                </div>
+                <motion.div
+                  animate={{ rotate: isActive ? 180 : 0 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <IoIosArrowDown className="text-gray-400" />
+                </motion.div>
+              </div>
+
+               {!isActive && (
+                 <div className="flex flex-wrap gap-2 mt-4 ml-14">
+                    {category.skills.slice(0, 3).map((skill, i) => (
+                        <span key={i} className="text-xs bg-white/5 text-gray-400 px-2 py-1 rounded-md">
+                            {skill.name}
+                        </span>
+                    ))}
+                    {category.skills.length > 3 && (
+                        <span className="text-xs bg-white/5 text-gray-500 px-2 py-1 rounded-md">
+                            +{category.skills.length - 3} more
+                        </span>
+                    )}
+                 </div>
+               )}
+
+              <AnimatePresence>
+                {isActive && (
+                  <motion.div
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: "auto" }}
+                    exit={{ opacity: 0, height: 0 }}
+                    transition={{ duration: 0.3 }}
+                    className="mt-6 pl-2 pr-2"
+                  >
+                    <div className="h-px w-full bg-white/10 mb-6" />
+                    <div className="space-y-5">
+                        {category.skills.map((skill, i) => (
+                        <SkillBar
+                            key={i}
+                            skill={skill}
+                            index={i}
+                            isVisible={isActive}
+                        />
+                        ))}
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </motion.div>
+          );
+        })}
+      </div>
+    </section>
   );
 };
 

@@ -1,178 +1,94 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { WORK_EXPERIENCE } from "../utils/data";
+import { FaBriefcase, FaCalendarAlt } from "react-icons/fa";
 
 const WorkExperience = () => {
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        duration: 0.8,
-        staggerChildren: 0.3,
-      },
-    },
-  };
-
-  const cardVariants = {
-    hidden: { opacity: 0, x: index => index % 2 === 0 ? 100 : -100, scale: 0.8 },
-    visible: {
-      opacity: 1,
-      x: 0,
-      scale: 1,
-      transition: {
-        duration: 0.8,
-        ease: "easeOut",
-      },
-    },
-  };
-
   return (
-    <motion.section
-      className="max-w-screen-xl mx-auto px-6 py-16 md:px-20 relative"
-      id="experience"
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, amount: 0.3 }}
-      variants={containerVariants}
-    >
-      <motion.h2 
-        className="section-title text-3xl md:text-4xl font-bold text-center mb-16"
-        initial={{ opacity: 0, y: -50 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-      >
-        Professional Experience
-      </motion.h2>
-
+    <section className="max-w-7xl mx-auto px-6 py-20 relative">
       <motion.div 
-        className="relative"
-        variants={containerVariants}
+        className="text-center mb-16"
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+        viewport={{ once: true }}
       >
-        {/* Timeline line */}
-        <motion.div 
-          className="hidden md:block absolute left-1/2 top-0 h-full w-1 bg-gradient-to-b from-[var(--primary)] to-blue-400 transform -translate-x-1/2 z-0"
-          initial={{ scaleY: 0 }}
-          whileInView={{ scaleY: 1 }}
-          transition={{ duration: 1.5, ease: "easeOut" }}
-        />
-        
-        {WORK_EXPERIENCE.map((experience, index) => (
-          <WorkExperienceCard
-            key={experience.company}
-            company={experience.company}
-            position={experience.position}
-            duration={experience.duration}
-            description={experience.description}
+        <h2 className="text-3xl md:text-5xl font-bold text-white mb-6 tracking-tight">
+          Professional <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">Journey</span>
+        </h2>
+        <p className="text-slate-400 max-w-2xl mx-auto text-base leading-relaxed">
+          Building scalable solutions and driving technical innovation.
+        </p>
+      </motion.div>
+
+      <div className="flex flex-col gap-8 max-w-4xl mx-auto">
+        {WORK_EXPERIENCE.map((job, index) => (
+          <ExperienceCard 
+            key={job.id} 
+            job={job} 
+            isCurrent={index === 0}
             index={index}
-            isLast={index === WORK_EXPERIENCE.length - 1}
-            variants={cardVariants}
           />
         ))}
-      </motion.div>
-    </motion.section>
+      </div>
+    </section>
   );
 };
 
-const WorkExperienceCard = ({
-  company,
-  position,
-  duration,
-  description,
-  index,
-  isLast,
-  variants,
-}) => {
+const ExperienceCard = ({ job, isCurrent, index }) => {
   return (
-    <motion.div 
-      className="relative mb-16 md:mb-24"
-      variants={variants}
-      custom={index}
-      whileHover={{ scale: 1.02 }}
+    <motion.div
+      className="relative bg-[#0a0a0a]/60 backdrop-blur-xl rounded-2xl border border-white/5 p-8 transition-all duration-300 hover:border-purple-500/20 group hover:bg-[#0a0a0a]/80 hover:shadow-2xl hover:shadow-purple-900/10"
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, delay: index * 0.1 }}
+      viewport={{ once: true }}
     >
-      {/* Timeline dot */}
-      <motion.div 
-        className="hidden md:flex absolute left-1/2 top-6 w-6 h-6 bg-gradient-to-r from-[var(--primary)] to-blue-400 rounded-full shadow-lg transform -translate-x-1/2 z-10 items-center justify-center"
-        initial={{ scale: 0, opacity: 0 }}
-        whileInView={{ scale: 1, opacity: 1 }}
-        transition={{ delay: index * 0.2, duration: 0.5 }}
-        whileHover={{ 
-          scale: 1.3,
-          boxShadow: "0 0 20px rgba(15, 157, 248, 0.6)"
-        }}
-      >
-        <motion.div 
-          className="w-3 h-3 bg-white rounded-full"
-          animate={{
-            scale: [1, 1.2, 1],
-            opacity: [0.8, 1, 0.8],
-          }}
-          transition={{
-            duration: 2,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-        />
-      </motion.div>
+      {isCurrent && (
+        <div className="absolute top-0 right-0">
+          <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-bl-xl rounded-tr-xl shadow-lg">
+            Current Role
+          </div>
+        </div>
+      )}
 
-      {/* Content card */}
-      <motion.div 
-        className={`relative z-10 md:w-5/12 ${index % 2 === 0 ? 'md:ml-auto' : ''}`}
-        initial={{ opacity: 0, x: index % 2 === 0 ? 100 : -100 }}
-        whileInView={{ opacity: 1, x: 0 }}
-        transition={{ delay: index * 0.2, duration: 0.8 }}
-      >
-        <motion.div 
-          className="glass-card p-6 group"
-          whileHover={{ 
-            scale: 1.02,
-            rotateY: index % 2 === 0 ? 2 : -2,
-            boxShadow: "0 20px 40px rgba(15, 157, 248, 0.2)"
-          }}
-        >
-          {/* Header */}
-          <motion.div 
-            className="flex flex-col md:flex-row justify-between items-start md:items-center gap-3 mb-4"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ delay: index * 0.2 + 0.3 }}
+      <div className="flex flex-col md:flex-row md:justify-between md:items-start gap-4 mb-6">
+        <div>
+          <h3 className="text-xl md:text-2xl font-bold text-white mb-2 group-hover:text-purple-400 transition-colors">
+            {job.position}
+          </h3>
+          <div className="flex items-center gap-3">
+             <span className="flex items-center gap-2 text-sm font-semibold text-blue-400">
+                <FaBriefcase className="text-xs" />
+                {job.company}
+             </span>
+             <span className="text-slate-600">•</span>
+             <span className="text-xs text-slate-400 bg-white/5 px-2 py-0.5 rounded border border-white/5">
+                {job.type}
+             </span>
+          </div>
+        </div>
+        
+        <div className="flex items-center gap-2 text-slate-500 text-sm font-medium bg-white/5 px-3 py-1.5 rounded-lg border border-white/5">
+          <FaCalendarAlt className="text-xs" />
+          {job.duration}
+        </div>
+      </div>
+
+      <p className="text-slate-400 text-sm leading-7 mb-6">
+        {job.description}
+      </p>
+
+      <div className="flex flex-wrap gap-2">
+        {job.skills?.map((skill, i) => (
+          <span 
+            key={i} 
+            className="text-[11px] font-medium text-slate-300 bg-white/5 px-2.5 py-1 rounded-md border border-white/5 group-hover:border-white/10 transition-colors"
           >
-            <div>
-              <h3 className="text-xl font-bold text-white group-hover:text-blue-300 transition-colors">
-                {company}
-              </h3>
-              <p className="text-blue-300 font-medium group-hover:text-blue-200 transition-colors">
-                {position}
-              </p>
-            </div>
-            <motion.div 
-              className="text-white text-sm font-medium bg-gradient-to-r from-blue-800/80 to-blue-900/80 backdrop-blur-sm rounded-full px-4 py-1 border border-blue-700/50"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              {duration}
-            </motion.div>
-          </motion.div>
-          
-          {/* Description */}
-          <motion.p 
-            className="text-blue-50 leading-relaxed group-hover:text-blue-100 transition-colors"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            transition={{ delay: index * 0.2 + 0.5 }}
-          >
-            {description}
-          </motion.p>
-          
-          {/* Decorative element */}
-          <motion.div 
-            className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-blue-500/10 to-transparent rounded-bl-full"
-            initial={{ opacity: 0, scale: 0 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            transition={{ delay: index * 0.2 + 0.7 }}
-          />
-        </motion.div>
-      </motion.div>
+            {skill}
+          </span>
+        ))}
+      </div>
     </motion.div>
   );
 };

@@ -1,235 +1,132 @@
-import React, { useState } from 'react';
-import { motion } from 'framer-motion';
-import { PROFILE_DATA } from '../utils/data';
-import { IoMdMail } from 'react-icons/io';
-import { IoPhonePortraitOutline } from 'react-icons/io5';
-import { MdOutlineWeb } from 'react-icons/md';
-import { FiSend } from 'react-icons/fi';
+import React, { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { FiMail, FiPhone, FiMapPin, FiArrowRight } from "react-icons/fi";
+import { PROFILE_DATA } from "../utils/data";
+import ContactForm from "./ContactForm";
 
 const Contact = () => {
-  const [formData, setFormData] = useState({
-    fullName: '',
-    email: '',
-    message: ''
-  });
-
-  const [isSubmitting, setIsSubmitting] = useState(false);
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-    // Simulate form submission
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setFormData({ fullName: '', email: '', message: '' });
-    }, 2000);
-  };
-
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
-  };
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        duration: 0.8,
-        staggerChildren: 0.2,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 50 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.6,
-        ease: "easeOut",
-      },
-    },
-  };
+  const [activeTab, setActiveTab] = useState("info");
 
   return (
-    <motion.section 
-      id='contact' 
-      className='max-w-screen-xl mx-auto px-6 pb-20'
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, amount: 0.3 }}
-      variants={containerVariants}
-    >
-      <motion.h5 
-        className='section-title text-2xl md:text-4xl font-semibold text-center pb-8 md:pb-14'
-        variants={itemVariants}
-      >
-        Get In Touch
-      </motion.h5>
-    
-      <motion.div 
-        className='grid grid-cols-1 md:grid-cols-2 md:gap-16'
-        variants={containerVariants}
-      > 
-        <motion.div 
-          className='space-y-4'
-          variants={itemVariants}
-        >
-          <ContactInfoCard 
-            icon={<IoMdMail />} 
-            text={PROFILE_DATA.email} 
-            type="email"
-            index={0}
-          />
-          <ContactInfoCard 
-            icon={<IoPhonePortraitOutline />} 
-            text={PROFILE_DATA.phone} 
-            type="phone"
-            index={1}
-          />
-          <ContactInfoCard 
-            icon={<MdOutlineWeb />} 
-            text={PROFILE_DATA.website} 
-            type="website"
-            index={2}
-          />
-        </motion.div>
-        
-        <motion.div 
-          variants={itemVariants}
-          className="relative"
-        >
-          <h5 className='md:hidden text-cyan-300 text-lg font-medium mt-4 pb-5'> Contact Form </h5>
-          <motion.form 
-            className='flex flex-col space-y-4'
-            onSubmit={handleSubmit}
-            initial={{ opacity: 0, x: 50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.3 }}
-          >
-            <motion.input 
-              type='text' 
-              name='fullName' 
-              placeholder='Full Name' 
-              className='input-box' 
-              autoComplete='off'
-              value={formData.fullName}
-              onChange={handleChange}
-              whileFocus={{ scale: 1.02, borderColor: "var(--primary)" }}
-            />
-            <motion.input 
-              type='email' 
-              name='email' 
-              placeholder='Email' 
-              className='input-box' 
-              autoComplete='off'
-              value={formData.email}
-              onChange={handleChange}
-              whileFocus={{ scale: 1.02, borderColor: "var(--primary)" }}
-            />
-            <motion.textarea 
-              name='message' 
-              cols='30' 
-              rows='4' 
-              placeholder='Your Message' 
-              className='input-box resize-none' 
-              autoComplete='off'
-              value={formData.message}
-              onChange={handleChange}
-              whileFocus={{ scale: 1.02, borderColor: "var(--primary)" }}
-            />
-            <motion.button 
-              type='submit' 
-              className='primary-btn group'
-              whileHover={{ scale: 1.05, y: -2 }}
-              whileTap={{ scale: 0.95 }}
-              disabled={isSubmitting}
+    <section className="max-w-7xl mx-auto px-6 py-24 relative overflow-hidden">
+        {/* Background Gradients */}
+
+
+        <div className="text-center mb-12 relative z-10">
+            <motion.div
+                 initial={{ opacity: 0, y: 20 }}
+                 whileInView={{ opacity: 1, y: 0 }}
+                 viewport={{ once: true }}
             >
-              {isSubmitting ? (
-                <motion.div
-                  className="flex items-center gap-2"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                >
-                  <motion.div
-                    className="w-4 h-4 border-2 border-white border-t-transparent rounded-full"
-                    animate={{ rotate: 360 }}
-                    transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-                  />
-                  Sending...
-                </motion.div>
-              ) : (
-                <motion.div
-                  className="flex items-center gap-2"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                >
-                  Send Message
-                  <motion.div
-                    whileHover={{ x: 5 }}
-                    transition={{ duration: 0.3 }}
-                  >
-                    <FiSend />
-                  </motion.div>
-                </motion.div>
-              )}
-            </motion.button>
-          </motion.form>
-        </motion.div>
-      </motion.div>
-    </motion.section>
+                <h2 className="text-3xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-violet-200 via-white to-violet-200 mb-6">
+                    Let's Work Together
+                </h2>
+                <p className="text-blue-200/60 max-w-2xl mx-auto text-lg mb-8">
+                    Have a project in mind? Let's discuss how we can create something amazing together.
+                </p>
+
+                {/* Tabs */}
+                <div className="inline-flex p-1 bg-white/5 backdrop-blur-md rounded-xl border border-white/10 mb-8">
+                    {['info', 'form'].map((tab) => (
+                        <button
+                            key={tab}
+                            onClick={() => setActiveTab(tab)}
+                            className={`
+                                relative px-6 py-2.5 rounded-lg text-sm font-medium transition-all duration-300
+                                ${activeTab === tab ? 'text-white' : 'text-gray-400 hover:text-white'}
+                            `}
+                        >
+                            {activeTab === tab && (
+                                <motion.div
+                                    layoutId="contactTab"
+                                    className="absolute inset-0 bg-violet-600 rounded-lg shadow-lg shadow-violet-500/20"
+                                    transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+                                />
+                            )}
+                            <span className="relative z-10 flex items-center gap-2">
+                                {tab === 'info' ? '📍 Contact Info' : '✉️ Send Message'}
+                            </span>
+                        </button>
+                    ))}
+                </div>
+            </motion.div>
+        </div>
+
+        <div className="relative max-w-4xl mx-auto z-10 min-h-[500px]">
+            <AnimatePresence mode="wait">
+                {activeTab === 'info' ? (
+                    <motion.div
+                        key="info"
+                        initial={{ opacity: 0, x: -20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        exit={{ opacity: 0, x: 20 }}
+                        transition={{ duration: 0.3 }}
+                        className="space-y-6"
+                    >
+                         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            <ContactCard 
+                                icon={<FiMail />} 
+                                title="Email" 
+                                value={PROFILE_DATA.email} 
+                                href={`mailto:${PROFILE_DATA.email}`}
+                                color="bg-violet-500/20 text-violet-400 border-violet-500/20"
+                            />
+                            <ContactCard 
+                                icon={<FiPhone />} 
+                                title="Phone" 
+                                value={PROFILE_DATA.phone}
+                                href={`tel:${PROFILE_DATA.phone}`}
+                                color="bg-cyan-500/20 text-cyan-400 border-cyan-500/20"
+                            />
+                            <ContactCard 
+                                icon={<FiMapPin />} 
+                                title="Location" 
+                                value={PROFILE_DATA.location} 
+                                color="bg-pink-500/20 text-pink-400 border-pink-500/20"
+                            />
+                        </div>
+
+                        {/* CTA Box */}
+                        <div className="mt-12 p-8 rounded-2xl bg-gradient-to-br from-white/5 to-white/[0.02] border border-white/10 text-center backdrop-blur-md">
+                            <h3 className="text-2xl font-bold text-white mb-2">Ready to start?</h3>
+                            <p className="text-gray-400 mb-6">Initiate a conversation by filling out the detailed form.</p>
+                            <button
+                                onClick={() => setActiveTab('form')}
+                                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-white text-black font-semibold hover:bg-gray-200 transition-colors"
+                            >
+                                Go to Contact Form <FiArrowRight />
+                            </button>
+                        </div>
+                    </motion.div>
+                ) : (
+                    <motion.div
+                        key="form"
+                        initial={{ opacity: 0, x: 20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        exit={{ opacity: 0, x: -20 }}
+                        transition={{ duration: 0.3 }}
+                    >
+                        <ContactForm />
+                    </motion.div>
+                )}
+            </AnimatePresence>
+        </div>
+    </section>
   );
 };
 
-const ContactInfoCard = ({icon, text, type, index}) => {
-  const iconColors = {
-    email: "text-blue-400",
-    phone: "text-green-400", 
-    website: "text-purple-400"
-  };
-
-  const bgColors = {
-    email: "from-blue-900/50 to-blue-800/50",
-    phone: "from-green-900/50 to-green-800/50",
-    website: "from-purple-900/50 to-purple-800/50"
-  };
-
-  return (
-    <motion.div 
-      className={`flex items-center gap-5 glass-card px-4 py-3 group cursor-pointer`}
-      initial={{ opacity: 0, x: -50 }}
-      whileInView={{ opacity: 1, x: 0 }}
-      transition={{ delay: index * 0.1, duration: 0.6 }}
-      whileHover={{ 
-        scale: 1.02, 
-        x: 10,
-        boxShadow: "0 10px 30px rgba(15, 157, 248, 0.2)"
-      }}
-      whileTap={{ scale: 0.98 }}
-    >
-      <motion.div 
-        className={`w-10 h-10 text-xl ${iconColors[type]} flex items-center justify-center bg-gradient-to-r ${bgColors[type]} backdrop-blur-sm rounded border border-blue-700/50 group-hover:border-blue-500/70 transition-all duration-300`}
-        whileHover={{ 
-          scale: 1.2, 
-          rotate: 360,
-          boxShadow: "0 0 20px rgba(15, 157, 248, 0.5)"
-        }}
-        transition={{ duration: 0.5 }}
-      >
-        {icon}
-      </motion.div>
-      <motion.p 
-        className='text-cyan-100 text-xs md:text-sm group-hover:text-cyan-200 transition-colors'
-        whileHover={{ x: 5 }}
-      >
-        {text}
-      </motion.p>
-    </motion.div>
-  );
-};
+const ContactCard = ({ icon, title, value, href, color }) => (
+    <div className="p-6 rounded-2xl bg-[#0a0a0a]/40 border border-white/5 flex flex-col items-center text-center hover:bg-white/5 transition-colors duration-300">
+        <div className={`w-14 h-14 rounded-xl flex items-center justify-center text-2xl mb-4 border ${color}`}>
+            {icon}
+        </div>
+        <h3 className="text-lg font-bold text-white mb-1">{title}</h3>
+        {href ? (
+             <a href={href} className="text-sm text-gray-400 hover:text-white transition-colors break-all">{value}</a>
+        ) : (
+             <p className="text-sm text-gray-400">{value}</p>
+        )}
+    </div>
+);
 
 export default Contact;

@@ -5,7 +5,10 @@ import { Link } from "react-scroll";
 const MobileNavbar = ({ isOpen, setIsMenuOpen }) => {
   const handleScroll = (sectionId) => {
     if (isOpen) setIsMenuOpen(false);
-    document.getElementById(sectionId).scrollIntoView({ behavior: "smooth" });
+    const element = document.getElementById(sectionId);
+    if (element) {
+        element.scrollIntoView({ behavior: "smooth" });
+    }
   };
 
   const menuVariants = {
@@ -33,25 +36,19 @@ const MobileNavbar = ({ isOpen, setIsMenuOpen }) => {
     open: { x: 0, opacity: 1 },
   };
 
-  const overlayVariants = {
-    closed: { opacity: 0 },
-    open: { opacity: 1 },
-  };
-
   return (
     <AnimatePresence>
       {isOpen && (
         <motion.div 
-          className="w-screen fixed top-0 z-50"
+          className="w-screen fixed top-0 z-50 h-screen"
           initial="closed"
           animate="open"
           exit="closed"
         >
           {/* Overlay */}
           <motion.div 
-            className="w-screen h-screen bg-black/50 backdrop-blur-sm fixed top-0 -z-10" 
+            className="absolute inset-0 bg-black/50 backdrop-blur-sm -z-10" 
             onClick={() => setIsMenuOpen(false)}
-            variants={overlayVariants}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -60,12 +57,12 @@ const MobileNavbar = ({ isOpen, setIsMenuOpen }) => {
           
           {/* Menu Panel */}
           <motion.div 
-            className="w-3/4 md:w-1/2 h-screen flex flex-col p-8 glass-card"
+            className="w-3/4 md:w-1/2 h-full flex flex-col p-8 bg-white/5 backdrop-blur-md border-r border-white/10 shadow-2xl shadow-black/20"
             variants={menuVariants}
           >
             {/* Background decoration */}
             <motion.div 
-              className="ui-circle -ml-20 -mt-10"
+              className="absolute -top-10 -left-20 w-[130px] h-[130px] rounded-full border-b-2 border-sky-500 opacity-70 blur-[1px]"
               animate={{
                 rotate: [0, 360],
                 scale: [1, 1.1, 1],
@@ -84,8 +81,10 @@ const MobileNavbar = ({ isOpen, setIsMenuOpen }) => {
             >
               {[
                 { id: "hero", label: "Home" },
+                { id: "projects", label: "Projects" },
                 { id: "skills", label: "Skills" },
                 { id: "experience", label: "Work Experience" },
+                { id: "education", label: "Education" },
                 { id: "about", label: "About Me" },
               ].map((item, index) => (
                 <motion.li 
@@ -94,22 +93,19 @@ const MobileNavbar = ({ isOpen, setIsMenuOpen }) => {
                   whileHover={{ x: 10, scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
-                  <motion.a 
+                  <a 
                     className="text-xl font-semibold text-white hover:text-blue-300 transition-colors cursor-pointer block py-2"
                     onClick={() => handleScroll(item.id)}
-                    whileHover={{ 
-                      textShadow: "0 0 20px rgba(15, 157, 248, 0.5)"
-                    }}
                   >
                     {item.label}
-                  </motion.a>
+                  </a>
                 </motion.li>
               ))}
             </motion.ul>
             
             {/* Contact Button */}
             <motion.button 
-              className="primary-btn mt-8"
+              className="h-10 bg-gradient-to-r from-[#0f9df8] to-blue-500 text-white font-medium text-sm px-6 py-2 rounded-md border border-[#0f9df8] hover:from-transparent hover:to-transparent hover:text-[#0f9df8] transition-all duration-300 mt-8"
               variants={itemVariants}
               whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.95 }}
@@ -118,19 +114,6 @@ const MobileNavbar = ({ isOpen, setIsMenuOpen }) => {
               Contact Us
             </motion.button>
             
-            {/* Decorative elements */}
-            <motion.div 
-              className="absolute bottom-8 right-8 w-20 h-20 bg-gradient-to-r from-blue-500/20 to-cyan-500/20 rounded-full blur-xl"
-              animate={{
-                scale: [1, 1.2, 1],
-                opacity: [0.3, 0.6, 0.3],
-              }}
-              transition={{
-                duration: 4,
-                repeat: Infinity,
-                ease: "easeInOut",
-              }}
-            />
           </motion.div>
         </motion.div>
       )}
@@ -139,6 +122,3 @@ const MobileNavbar = ({ isOpen, setIsMenuOpen }) => {
 };
 
 export default MobileNavbar;
-
-
-

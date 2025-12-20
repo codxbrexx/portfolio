@@ -1,12 +1,12 @@
-/* Import fonts with corrected syntax and better performance */
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Poppins:wght@100;200;300;400;500;600;700;800;900&family=EB+Garamond:wght@400;500;600;700;800&family=Montserrat:wght@100;200;300;400;500;600;700;800;900&family=Shadows+Into+Light&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@100;200;300;400;500;600;700;800;900&family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap");
 @import "tailwindcss";
 
 @layer base {
   html {
-    font-family: "Poppins", sans-serif;
+    font-family: "Outfit", sans-serif;
     color: #ffffff;
     scroll-behavior: smooth;
+    cursor: none; /* Hide default cursor for custom one */
   }
   
   body {
@@ -14,9 +14,13 @@
     background-color: var(--background);
     min-height: 100vh;
     background-image: 
-      radial-gradient(circle at 20% 80%, rgba(15, 157, 248, 0.1) 0%, transparent 50%),
-      radial-gradient(circle at 80% 20%, rgba(37, 99, 235, 0.1) 0%, transparent 50%),
-      radial-gradient(circle at 40% 40%, rgba(15, 157, 248, 0.05) 0%, transparent 50%);
+      radial-gradient(circle at 15% 50%, rgba(139, 92, 246, 0.08) 0%, transparent 50%),
+      radial-gradient(circle at 85% 30%, rgba(6, 182, 212, 0.08) 0%, transparent 50%),
+      radial-gradient(circle at 50% 80%, rgba(59, 130, 246, 0.05) 0%, transparent 50%);
+  }
+  
+  a, button, input, textarea, select {
+    cursor: none; /* Hide cursor on interactive elements too */
   }
   
   ::selection {
@@ -26,121 +30,20 @@
 }
 
 @layer components {
-  .menu-items {
-    @apply text-xs md:text-sm font-normal text-white relative cursor-pointer;
-    @apply after:content-[''] after:w-0 after:h-[3px]
-           after:absolute after:left-0 after:-bottom-2 after:rounded
-           after:bg-gradient-to-r after:from-[var(--primary)] after:to-blue-400 
-           after:transition-all after:duration-500 after:ease-out;
-    
-    /* Improved hover effect with smooth transition */
-    &:hover::after {
-      @apply w-full;
-    }
-    
-    &.active::after {
-      @apply w-full;
-    }
-  }
-  
-  .hero-img {
-    @apply w-[120px] h-[120px] md:w-[160px] md:h-[160px] 
-           bg-gradient-to-br from-slate-800 via-blue-900 to-slate-900
-           rounded-full border-2 border-blue-500/50
-           shadow-2xl shadow-blue-500/30
-           backdrop-blur-sm;
-  }
-  
-  .primary-btn {
-    @apply h-10 md:h-12 bg-gradient-to-r from-[var(--primary)] to-blue-500 
-           text-white font-medium text-sm 
-           px-6 py-2 rounded-md border border-[var(--primary)] 
-           hover:bg-gradient-to-r hover:from-transparent hover:to-transparent 
-           hover:text-[var(--primary)] hover:border-[var(--primary)]
-           cursor-pointer transition-all duration-500 ease-out
-           shadow-lg shadow-blue-600/30 hover:shadow-blue-500/50
-           flex items-center justify-center gap-2
-           hover:scale-105 active:scale-95;
-  }
-  
-  .input-box {
-    @apply bg-gradient-to-br from-blue-950/80 to-slate-900/80 
-           backdrop-blur-sm rounded-md border border-blue-800/40 px-4 py-3 
-           placeholder:text-slate-400 placeholder:text-sm mb-5 
-           focus:outline-none focus:border-[var(--primary)] focus:border-2
-           text-white transition-all duration-300
-           hover:border-blue-700/60;
-  }
-  
-  .ui-circle {
-    @apply w-[130px] h-[130px] md:h-[180px] md:w-[180px]
-           rounded-full border-b-2 border-sky-500
-           origin-top-left rotate-[-36deg]
-           absolute opacity-70 md:opacity-90
-           blur-[1px] transition-all duration-700
-           animate-pulse;
-  }
-  
-  .card {
-    @apply bg-gradient-to-br from-[var(--cardbg)]/90 to-blue-950/70
-           backdrop-blur-sm border border-blue-800/30 rounded-lg p-5
-           hover:border-blue-700/60 hover:shadow-2xl hover:shadow-blue-500/20 
-           transition-all duration-500 ease-out
-           shadow-lg shadow-black/20
-           hover:scale-[1.02];
-  }
-  
-  .section-title {
-    @apply text-2xl md:text-3xl font-bold text-white 
-           mb-8 relative inline-block;
-    
-    &::after {
-      content: '';
-      @apply absolute -bottom-3 left-0 h-1 w-1/2 
-             bg-gradient-to-r from-[var(--primary)] to-blue-400 rounded-full;
-    }
-  }
-
-  .glass-card {
-    @apply bg-white/5 backdrop-blur-md border border-white/10 
-           rounded-xl shadow-2xl shadow-black/20
-           hover:bg-white/10 hover:border-white/20
-           transition-all duration-500 ease-out;
-  }
-
-  .gradient-text {
-    @apply bg-gradient-to-r from-white via-blue-200 to-blue-400 
-           bg-clip-text text-transparent;
-  }
-
-  .floating-animation {
-    animation: float 6s ease-in-out infinite;
-  }
-
-  .glow-effect {
-    box-shadow: 0 0 20px rgba(15, 157, 248, 0.3);
-  }
-
-  .skill-badge {
-    @apply text-xs bg-gradient-to-r from-blue-800/40 to-blue-900/40 
-           px-3 py-1 rounded-full border border-blue-700/50 
-           text-blue-200 backdrop-blur-sm
-           hover:from-blue-700/50 hover:to-blue-800/50
-           transition-all duration-300 ease-out
-           hover:scale-105;
-  }
+   /* Custom components have been refactored to inline utilities */
 }
 
 @layer theme {
   :root {
-    --primary: #0f9df8;
-    --background: #040b1c;
-    --cardbg: #061840;
+    --primary: #8b5cf6; /* Violet-500 for aesthetic pop */
+    --secondary: #06b6d4; /* Cyan-500 */
+    --background: #030014; /* Deep Space Black */
+    --cardbg: #0f0c29; /* Dark Purple-Black */
     --white: #fbfbfb;
-    --navbg: rgba(10, 33, 78, 0.8);
-    --overlayBg: rgba(0, 0, 0, 0.3);
-    --gradient-1: linear-gradient(to right, #0f9df8, #2563eb);
-    --shadow-primary: 0 4px 14px rgba(15, 157, 248, 0.2);
+    --navbg: rgba(3, 0, 20, 0.7);
+    --overlayBg: rgba(0, 0, 0, 0.6);
+    --gradient-1: linear-gradient(to right, #8b5cf6, #3b82f6);
+    --shadow-primary: 0 4px 14px rgba(139, 92, 246, 0.2);
   }
 }
 
@@ -238,9 +141,7 @@
 }
 
 /* Responsive utilities */
-.container-custom {
-  @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
-}
+
 
 /* Enhanced scrollbar */
 ::-webkit-scrollbar {

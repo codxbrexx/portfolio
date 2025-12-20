@@ -54,7 +54,7 @@ const Navbar = () => {
       </AnimatePresence>
       
       <motion.div 
-        className="w-screen hidden md:flex justify-center items-center py-4 fixed top-0 z-50"
+        className="w-screen hidden md:flex justify-center items-center py-4 fixed top-0 z-[999]"
         variants={navVariants}
         initial="hidden"
         animate="visible"
@@ -62,8 +62,8 @@ const Navbar = () => {
         <motion.nav 
           className={`max-w-screen-xl rounded-xl shadow-2xl mx-auto px-6 py-3 transition-all duration-500 ${
             scrolled 
-              ? 'bg-[var(--navbg)] backdrop-blur-md border border-blue-800/30 shadow-blue-500/20' 
-              : 'bg-[var(--navbg)]/60 backdrop-blur-sm border border-blue-800/20'
+              ? 'bg-[#030014]/80 backdrop-blur-2xl border border-white/10 shadow-2xl shadow-purple-500/10' 
+              : 'bg-[#030014]/50 backdrop-blur-md border border-white/5'
           }`}
           whileHover={{ scale: 1.02 }}
         >
@@ -75,8 +75,10 @@ const Navbar = () => {
           >
             {[
               { to: "hero", label: "Home" },
+              { to: "projects", label: "Projects" },
               { to: "skills", label: "Skills" },
               { to: "experience", label: "Work Experience" },
+              { to: "education", label: "Education" },
               { to: "about", label: "About Me" },
               { to: "contact", label: "Contact" }
             ].map((item, index) => (
@@ -91,10 +93,11 @@ const Navbar = () => {
                   smooth 
                   spy 
                   offset={-80} 
-                  className="menu-items"
+                  className="text-xs md:text-sm font-normal text-white relative cursor-pointer group"
                   activeClass="active"
                 >
                   {item.label}
+                  <span className="absolute left-0 -bottom-2 w-0 h-[3px] bg-gradient-to-r from-[#0f9df8] to-blue-400 rounded transition-all duration-500 ease-out group-hover:w-full group-[.active]:w-full"></span>
                 </Link>
               </motion.li>
             ))}
