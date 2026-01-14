@@ -2,8 +2,8 @@
 import { motion } from "framer-motion";
 import { Link } from "react-scroll";
 import { HERO_CONTENT, PROFILE_DATA } from "../utils/data";
-import HeroImage from "../assets/Hero6.png";
-import Background from "./Background";
+import HeroImage from "../assets/hero-gen.png";
+
 import {
   FaDownload,
   FaGithub,
@@ -29,7 +29,7 @@ const Hero = () => {
   return (
     <section className="relative w-full min-h-screen flex items-center justify-center overflow-hidden">
       {/* Dynamic Background */}
-      <Background />
+
 
       <motion.div
         className="w-full max-w-4xl mx-auto px-6 py-20 flex flex-col items-center text-center relative z-10"
