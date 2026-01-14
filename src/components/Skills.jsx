@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { SKILLS } from "../utils/data";
 import { IoIosArrowDown } from "react-icons/io";
@@ -35,13 +35,13 @@ const SkillBar = ({ skill, index, isVisible }) => {
     >
       <div className="flex justify-between items-center mb-1">
         <div className="flex items-center gap-2">
-            {skill.icon && <skill.icon className="text-[#0f9df8]" />}
-            <span className="font-medium text-blue-100/90 text-sm">
+          {skill.icon && <skill.icon className="text-[#0f9df8]" />}
+          <span className="font-medium text-blue-100/90 text-sm">
             {skill.name}
-            </span>
-            <span className={`text-[10px] px-2 py-0.5 rounded-full ${skillLevel.color} bg-white/5 border border-white/5`}>
-                {skillLevel.text}
-            </span>
+          </span>
+          <span className={`text-[10px] px-2 py-0.5 rounded-full ${skillLevel.color} bg-white/5 border border-white/5`}>
+            {skillLevel.text}
+          </span>
         </div>
         <span className="text-xs text-blue-300/80 font-mono">
           {animatedLevel}%
@@ -67,11 +67,11 @@ const SkillBar = ({ skill, index, isVisible }) => {
 };
 
 const Skills = () => {
-  const [activeCategory, setActiveCategory] = useState(0); 
+  const [activeCategory, setActiveCategory] = useState(0);
 
   return (
     <section className="max-w-6xl mx-auto px-6 py-20">
-      <motion.div 
+      <motion.div
         className="text-center mb-16"
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -104,16 +104,16 @@ const Skills = () => {
                 p-6 cursor-pointer transition-all duration-300 overflow-hidden
               `}
             >
-                <div 
-                    className={`absolute inset-0 opacity-0 transition-opacity duration-500 pointer-events-none -z-10
+              <div
+                className={`absolute inset-0 opacity-0 transition-opacity duration-500 pointer-events-none -z-10
                     bg-gradient-to-br ${category.color} blur-3xl`}
-                    style={{ opacity: isActive ? 0.05 : 0 }}
-                />
+                style={{ opacity: isActive ? 0.05 : 0 }}
+              />
 
               <div className="flex items-center justify-between mb-2">
                 <div className="flex items-center gap-4">
                   <div className={`p-3 rounded-lg bg-gradient-to-br ${category.color} bg-opacity-10`}>
-                     <category.icon className="text-white text-xl" />
+                    <category.icon className="text-white text-xl" />
                   </div>
                   <h3 className="text-xl font-bold text-white">{category.title}</h3>
                 </div>
@@ -125,20 +125,20 @@ const Skills = () => {
                 </motion.div>
               </div>
 
-               {!isActive && (
-                 <div className="flex flex-wrap gap-2 mt-4 ml-14">
-                    {category.skills.slice(0, 3).map((skill, i) => (
-                        <span key={i} className="text-xs bg-white/5 text-gray-400 px-2 py-1 rounded-md">
-                            {skill.name}
-                        </span>
-                    ))}
-                    {category.skills.length > 3 && (
-                        <span className="text-xs bg-white/5 text-gray-500 px-2 py-1 rounded-md">
-                            +{category.skills.length - 3} more
-                        </span>
-                    )}
-                 </div>
-               )}
+              {!isActive && (
+                <div className="flex flex-wrap gap-2 mt-4 ml-14">
+                  {category.skills.slice(0, 3).map((skill, i) => (
+                    <span key={i} className="text-xs bg-white/5 text-gray-400 px-2 py-1 rounded-md">
+                      {skill.name}
+                    </span>
+                  ))}
+                  {category.skills.length > 3 && (
+                    <span className="text-xs bg-white/5 text-gray-500 px-2 py-1 rounded-md">
+                      +{category.skills.length - 3} more
+                    </span>
+                  )}
+                </div>
+              )}
 
               <AnimatePresence>
                 {isActive && (
@@ -151,14 +151,14 @@ const Skills = () => {
                   >
                     <div className="h-px w-full bg-white/10 mb-6" />
                     <div className="space-y-5">
-                        {category.skills.map((skill, i) => (
+                      {category.skills.map((skill, i) => (
                         <SkillBar
-                            key={i}
-                            skill={skill}
-                            index={i}
-                            isVisible={isActive}
+                          key={i}
+                          skill={skill}
+                          index={i}
+                          isVisible={isActive}
                         />
-                        ))}
+                      ))}
                     </div>
                   </motion.div>
                 )}

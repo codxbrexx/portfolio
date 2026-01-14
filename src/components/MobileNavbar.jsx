@@ -1,6 +1,4 @@
-import React from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Link } from "react-scroll";
 import { Link as RouterLink } from "react-router-dom";
 
 const MobileNavbar = ({ isOpen, setIsMenuOpen }) => {
@@ -85,7 +83,7 @@ const MobileNavbar = ({ isOpen, setIsMenuOpen }) => {
                 { id: "projects", label: "Projects", type: "scroll" },
                 { id: "skills", label: "Skills", type: "scroll" },
                 { id: "about", label: "About Me", type: "scroll" }
-              ].map((item, index) => (
+              ].map((item) => (
                 <motion.li
                   key={item.id}
                   variants={itemVariants}

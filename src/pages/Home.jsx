@@ -1,5 +1,3 @@
-import React from "react";
-
 import { motion } from "framer-motion";
 import { pageVariants } from "../utils/animation";
 import Navbar from "../components/Navbar";

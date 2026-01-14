@@ -4,9 +4,6 @@ import { AnimatePresence } from "framer-motion";
 import CustomCursor from "./components/CustomCursor";
 import Home from "./pages/Home";
 
-import wave from "./assets/wave.jpg";
-import wave1 from "./assets/wave1.jpg";
-
 function AnimatedRoutes() {
   const element = useRoutes([
     { path: "/", element: <Home /> }

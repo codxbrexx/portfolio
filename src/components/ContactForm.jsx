@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import { useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FiSend, FiBriefcase, FiUsers, FiMessageSquare, FiHelpCircle } from "react-icons/fi";
 
@@ -61,7 +61,7 @@ const ContactTypeSelector = ({ selected, onSelect }) => (
       >
         <div className="text-2xl mb-2 flex justify-center">{type.icon}</div>
         <div className="text-xs font-medium">{type.label}</div>
-        
+
         {selected === type.id && (
           <motion.div
             layoutId="contactTypeSelector"
@@ -86,7 +86,7 @@ export default function ContactForm() {
     budget: '',
     timeline: ''
   });
-  
+
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -103,7 +103,7 @@ export default function ContactForm() {
     if (!formData.contactType) newErrors.contactType = 'Please select a contact type';
     if (!formData.subject.trim()) newErrors.subject = 'Subject is required';
     if (!formData.message.trim()) newErrors.message = 'Message is required';
-    
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -113,15 +113,15 @@ export default function ContactForm() {
     if (!validateForm()) return;
 
     setIsSubmitting(true);
-    
+
     // Simulate API call
     setTimeout(() => {
-        setIsSubmitting(false);
-        setIsSubmitted(true);
-        setFormData({
-            name: '', email: '', company: '', contactType: '', urgency: 'medium',
-            subject: '', message: '', budget: '', timeline: ''
-        });
+      setIsSubmitting(false);
+      setIsSubmitted(true);
+      setFormData({
+        name: '', email: '', company: '', contactType: '', urgency: 'medium',
+        subject: '', message: '', budget: '', timeline: ''
+      });
     }, 2000);
   };
 
@@ -133,25 +133,25 @@ export default function ContactForm() {
 
   if (isSubmitted) {
     return (
-        <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            className="text-center py-20 px-6 rounded-2xl bg-gradient-to-b from-green-500/10 to-transparent border border-green-500/20"
+      <motion.div
+        initial={{ opacity: 0, scale: 0.9 }}
+        animate={{ opacity: 1, scale: 1 }}
+        className="text-center py-20 px-6 rounded-2xl bg-gradient-to-b from-green-500/10 to-transparent border border-green-500/20"
+      >
+        <div className="w-20 h-20 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-6 text-4xl">
+          ✅
+        </div>
+        <h3 className="text-2xl font-bold text-white mb-2">Message Sent Successfully!</h3>
+        <p className="text-gray-400 mb-8 max-w-md mx-auto">
+          Thank you for reaching out! I&apos;ll review your message and get back to you within 24 hours.
+        </p>
+        <button
+          onClick={() => setIsSubmitted(false)}
+          className="px-8 py-3 rounded-xl font-medium bg-green-500 hover:bg-green-400 text-black transition-colors"
         >
-            <div className="w-20 h-20 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-6 text-4xl">
-                ✅
-            </div>
-            <h3 className="text-2xl font-bold text-white mb-2">Message Sent Successfully!</h3>
-            <p className="text-gray-400 mb-8 max-w-md mx-auto">
-                Thank you for reaching out! I'll review your message and get back to you within 24 hours.
-            </p>
-            <button
-                onClick={() => setIsSubmitted(false)}
-                className="px-8 py-3 rounded-xl font-medium bg-green-500 hover:bg-green-400 text-black transition-colors"
-            >
-                Send Another Message
-            </button>
-        </motion.div>
+          Send Another Message
+        </button>
+      </motion.div>
     );
   }
 
@@ -193,11 +193,11 @@ export default function ContactForm() {
           </FormField>
           <FormField label="Urgency">
             <div className="relative">
-                <select name="urgency" value={formData.urgency} onChange={handleInputChange} className={`${inputClassName} appearance-none cursor-pointer`}>
+              <select name="urgency" value={formData.urgency} onChange={handleInputChange} className={`${inputClassName} appearance-none cursor-pointer`}>
                 {URGENCY_LEVELS.map(level => (
-                    <option key={level.id} value={level.id} className="bg-[#1a1a1a]">{level.label}</option>
+                  <option key={level.id} value={level.id} className="bg-[#1a1a1a]">{level.label}</option>
                 ))}
-                </select>
+              </select>
             </div>
           </FormField>
         </div>
@@ -208,24 +208,24 @@ export default function ContactForm() {
         </FormField>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-             <FormField label="Budget Range (Optional)">
-                <select name="budget" value={formData.budget} onChange={handleInputChange} className={`${inputClassName} appearance-none cursor-pointer`}>
-                    <option value="" className="bg-[#1a1a1a]">Select Range</option>
-                    <option value="<5k" className="bg-[#1a1a1a]">Under $5,000</option>
-                    <option value="5k-10k" className="bg-[#1a1a1a]">$5,000 - $10,000</option>
-                    <option value="10k-30k" className="bg-[#1a1a1a]">$10,000 - $30,000</option>
-                    <option value=">30k" className="bg-[#1a1a1a]">$30,000+</option>
-                </select>
-             </FormField>
-             <FormField label="Timeline (Optional)">
-                <select name="timeline" value={formData.timeline} onChange={handleInputChange} className={`${inputClassName} appearance-none cursor-pointer`}>
-                    <option value="" className="bg-[#1a1a1a]">Select Timeline</option>
-                    <option value="asap" className="bg-[#1a1a1a]">ASAP</option>
-                    <option value="1mo" className="bg-[#1a1a1a]">Within 1 month</option>
-                    <option value="1-3mo" className="bg-[#1a1a1a]">1-3 months</option>
-                    <option value="flexible" className="bg-[#1a1a1a]">Flexible</option>
-                </select>
-             </FormField>
+          <FormField label="Budget Range (Optional)">
+            <select name="budget" value={formData.budget} onChange={handleInputChange} className={`${inputClassName} appearance-none cursor-pointer`}>
+              <option value="" className="bg-[#1a1a1a]">Select Range</option>
+              <option value="<5k" className="bg-[#1a1a1a]">Under $5,000</option>
+              <option value="5k-10k" className="bg-[#1a1a1a]">$5,000 - $10,000</option>
+              <option value="10k-30k" className="bg-[#1a1a1a]">$10,000 - $30,000</option>
+              <option value=">30k" className="bg-[#1a1a1a]">$30,000+</option>
+            </select>
+          </FormField>
+          <FormField label="Timeline (Optional)">
+            <select name="timeline" value={formData.timeline} onChange={handleInputChange} className={`${inputClassName} appearance-none cursor-pointer`}>
+              <option value="" className="bg-[#1a1a1a]">Select Timeline</option>
+              <option value="asap" className="bg-[#1a1a1a]">ASAP</option>
+              <option value="1mo" className="bg-[#1a1a1a]">Within 1 month</option>
+              <option value="1-3mo" className="bg-[#1a1a1a]">1-3 months</option>
+              <option value="flexible" className="bg-[#1a1a1a]">Flexible</option>
+            </select>
+          </FormField>
         </div>
 
         {/* Message */}
@@ -246,15 +246,15 @@ export default function ContactForm() {
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
           className={`w-full py-4 rounded-xl font-bold text-lg flex items-center justify-center gap-2 shadow-lg
-            ${isSubmitting 
-                ? 'bg-gray-800 text-gray-400 cursor-not-allowed' 
-                : 'bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 text-white shadow-violet-500/20'
+            ${isSubmitting
+              ? 'bg-gray-800 text-gray-400 cursor-not-allowed'
+              : 'bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 text-white shadow-violet-500/20'
             } transition-all duration-300`}
         >
           {isSubmitting ? (
-              <>Sending...</>
+            <>Sending...</>
           ) : (
-             <>Send Message <FiSend /></>
+            <>Send Message <FiSend /></>
           )}
         </motion.button>
       </form>

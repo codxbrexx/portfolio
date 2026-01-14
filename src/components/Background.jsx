@@ -1,11 +1,5 @@
 import { useEffect } from "react";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
-import clsx from "clsx";
-import { twMerge } from "tailwind-merge";
-
-function cn(...inputs) {
-    return twMerge(clsx(inputs));
-}
 
 const Star = ({ size, top, left, duration, delay, moveX, moveY }) => {
     return (

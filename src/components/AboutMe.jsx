@@ -1,19 +1,16 @@
-import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { PERSONAL_BRAND_DATA } from "../utils/data";
-import { FaCode, FaRocket, FaRobot, FaTools, FaStar } from "react-icons/fa";
-import { BiTerminal } from "react-icons/bi";
+import { FaCode, FaRocket, FaStar } from "react-icons/fa";
 import { IoIosArrowForward } from "react-icons/io";
 
 const PersonalBrand = () => {
-  const [activeTab, setActiveTab] = useState("philosophy");
 
   return (
-    <section 
+    <section
       className="max-w-7xl mx-auto px-6 py-24 relative overflow-hidden"
     >
 
-      <motion.div 
+      <motion.div
         className="text-center mb-20"
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -28,7 +25,7 @@ const PersonalBrand = () => {
       </motion.div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
-        <motion.div 
+        <motion.div
           className="bg-[#0a0a0a]/60 backdrop-blur-xl border border-white/5 rounded-3xl p-8 hover:border-purple-500/30 transition-all duration-500 group"
           initial={{ opacity: 0, x: -20 }}
           whileInView={{ opacity: 1, x: 0 }}
@@ -48,7 +45,7 @@ const PersonalBrand = () => {
           </div>
         </motion.div>
 
-        <motion.div 
+        <motion.div
           className="bg-[#0a0a0a]/60 backdrop-blur-xl border border-white/5 rounded-3xl p-8 hover:border-blue-500/30 transition-all duration-500 relative overflow-hidden"
           initial={{ opacity: 0, x: 20 }}
           whileInView={{ opacity: 1, x: 0 }}
@@ -64,37 +61,37 @@ const PersonalBrand = () => {
           </p>
         </motion.div>
 
-        <motion.div 
+        <motion.div
           className="bg-[#0a0a0a]/60 backdrop-blur-xl border border-white/5 rounded-3xl p-8 hover:border-yellow-500/30 transition-all duration-500"
           initial={{ opacity: 0, x: -20 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.1 }}
         >
-           <div className="flex items-center gap-3 mb-6">
+          <div className="flex items-center gap-3 mb-6">
             <FaStar className="text-2xl text-yellow-400" />
             <h3 className="text-xl font-bold text-white">Core Values</h3>
           </div>
           <div className="grid grid-cols-2 gap-4">
             {PERSONAL_BRAND_DATA.values.map((val, idx) => (
-                <div key={idx} className="bg-white/5 rounded-xl p-3 border border-white/5">
-                    <h4 className="text-white font-medium text-sm mb-1">{val.title}</h4>
-                    <p className="text-xs text-gray-500">{val.description}</p>
-                </div>
+              <div key={idx} className="bg-white/5 rounded-xl p-3 border border-white/5">
+                <h4 className="text-white font-medium text-sm mb-1">{val.title}</h4>
+                <p className="text-xs text-gray-500">{val.description}</p>
+              </div>
             ))}
           </div>
         </motion.div>
 
-        <motion.div 
+        <motion.div
           className="bg-[#0a0a0a]/60 backdrop-blur-xl border border-white/5 rounded-3xl p-8 hover:border-red-500/30 transition-all duration-500"
           initial={{ opacity: 0, x: 20 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.1 }}
         >
-           <div className="flex items-center gap-3 mb-6">
+          <div className="flex items-center gap-3 mb-6">
             <div className="p-1 rounded bg-red-500/10">
-                <span className="text-2xl">🎯</span>
+              <span className="text-2xl">🎯</span>
             </div>
             <h3 className="text-xl font-bold text-white">{PERSONAL_BRAND_DATA.goals.title}</h3>
           </div>
@@ -106,50 +103,50 @@ const PersonalBrand = () => {
 
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-20">
         {PERSONAL_BRAND_DATA.stats.map((stat, index) => (
-            <motion.div
-                key={index}
-                className="bg-[#0a0a0a] border border-white/10 rounded-2xl p-6 text-center hover:bg-white/5 transition-colors"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.2 + (index * 0.1) }}
-            >
-                <div className="text-3xl mb-2">
-                    {index === 0 && "🚀"}
-                    {index === 1 && "🤖"}
-                    {index === 2 && "🛠️"}
-                    {index === 3 && "⭐"}
-                </div>
-                <h4 className="text-2xl font-bold text-white mb-1">{stat.value}</h4>
-                <p className="text-sm font-semibold text-gray-300 mb-2">{stat.label}</p>
-                <p className="text-xs text-gray-600">{stat.subtext}</p>
-            </motion.div>
+          <motion.div
+            key={index}
+            className="bg-[#0a0a0a] border border-white/10 rounded-2xl p-6 text-center hover:bg-white/5 transition-colors"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2 + (index * 0.1) }}
+          >
+            <div className="text-3xl mb-2">
+              {index === 0 && "🚀"}
+              {index === 1 && "🤖"}
+              {index === 2 && "🛠️"}
+              {index === 3 && "⭐"}
+            </div>
+            <h4 className="text-2xl font-bold text-white mb-1">{stat.value}</h4>
+            <p className="text-sm font-semibold text-gray-300 mb-2">{stat.label}</p>
+            <p className="text-xs text-gray-600">{stat.subtext}</p>
+          </motion.div>
         ))}
       </div>
 
-      <motion.div 
+      <motion.div
         className="max-w-3xl mx-auto bg-[#1e1e1e] rounded-xl overflow-hidden border border-white/10 shadow-2xl"
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
       >
         <div className="bg-[#2d2d2d] px-4 py-2 flex items-center gap-2 border-b border-white/5">
-            <div className="flex gap-2">
-                <div className="w-3 h-3 rounded-full bg-red-500" />
-                <div className="w-3 h-3 rounded-full bg-yellow-500" />
-                <div className="w-3 h-3 rounded-full bg-green-500" />
-            </div>
-            <span className="text-xs text-gray-400 ml-2 font-mono">developer.js</span>
+          <div className="flex gap-2">
+            <div className="w-3 h-3 rounded-full bg-red-500" />
+            <div className="w-3 h-3 rounded-full bg-yellow-500" />
+            <div className="w-3 h-3 rounded-full bg-green-500" />
+          </div>
+          <span className="text-xs text-gray-400 ml-2 font-mono">developer.js</span>
         </div>
         <div className="p-6 font-mono text-sm leading-relaxed overflow-x-auto">
-            <pre className="text-green-400">
-                <code>{PERSONAL_BRAND_DATA.codeSnippet}</code>
-            </pre>
-            <div className="mt-2 flex items-center gap-2">
-                <span className="text-blue-400">➜</span>
-                <span className="text-pink-400">~</span>
-                <span className="animate-pulse w-2 h-4 bg-gray-500 inline-block align-middle" />
-            </div>
+          <pre className="text-green-400">
+            <code>{PERSONAL_BRAND_DATA.codeSnippet}</code>
+          </pre>
+          <div className="mt-2 flex items-center gap-2">
+            <span className="text-blue-400">➜</span>
+            <span className="text-pink-400">~</span>
+            <span className="animate-pulse w-2 h-4 bg-gray-500 inline-block align-middle" />
+          </div>
         </div>
       </motion.div>
 

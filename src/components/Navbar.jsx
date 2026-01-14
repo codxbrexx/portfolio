@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "react-scroll";
 import { Link as RouterLink } from "react-router-dom";
@@ -79,7 +79,7 @@ const Navbar = () => {
               { to: "skills", label: "Skills", type: "scroll" },
               { to: "about", label: "About Me", type: "scroll" },
               { to: "contact", label: "Contact", type: "scroll" }
-            ].map((item, index) => (
+            ].map((item) => (
               <motion.li
                 key={item.to}
                 variants={menuItemVariants}

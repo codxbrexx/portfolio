@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
 import { GITHUB_USERNAME } from '../utils/data';
 import { FaGithub, FaCodeBranch, FaStar, FaRegDotCircle } from "react-icons/fa";
 import { BiGitRepoForked, BiGitPullRequest, BiGitCommit } from "react-icons/bi";
@@ -43,10 +43,10 @@ const ActivityCard = ({ activity, index }) => {
       </div>
       <div className="flex-1 min-w-0">
         <p className="text-sm font-medium text-white truncate group-hover:text-blue-300 transition-colors">
-            {getDescription(activity)}
+          {getDescription(activity)}
         </p>
         <p className="text-xs text-gray-500 mt-1">
-            {new Date(activity.created_at).toLocaleDateString()} • {new Date(activity.created_at).toLocaleTimeString()}
+          {new Date(activity.created_at).toLocaleDateString()} • {new Date(activity.created_at).toLocaleTimeString()}
         </p>
       </div>
     </motion.div>
@@ -74,43 +74,43 @@ const GitHubActivity = () => {
     <section className="max-w-4xl mx-auto px-6 py-20 relative">
       <div className="text-center mb-12">
         <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            className="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-slate-800/50 border border-slate-700/50 text-slate-300 text-sm mb-4"
+          initial={{ opacity: 0, scale: 0.9 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          className="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-slate-800/50 border border-slate-700/50 text-slate-300 text-sm mb-4"
         >
-            <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"/>
-            Live Activity
+          <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+          Live Activity
         </motion.div>
         <h2 className="text-3xl font-bold text-white mb-4">Latest from GitHub</h2>
         <p className="text-blue-200/60">
-            See what I've been hacking on recently 🚀
+          See what I&apos;ve been hacking on recently 🚀
         </p>
       </div>
 
       <div className="max-w-2xl mx-auto space-y-3">
         {loading ? (
-             [1, 2, 3].map(i => (
-                <div key={i} className="h-20 bg-white/5 rounded-xl animate-pulse" />
-             ))
+          [1, 2, 3].map(i => (
+            <div key={i} className="h-20 bg-white/5 rounded-xl animate-pulse" />
+          ))
         ) : (
-             activities.length > 0 ? (
-                activities.slice(0, 5).map((activity, index) => (
-                    <ActivityCard key={activity.id} activity={activity} index={index} />
-                ))
-             ) : (
-                <div className="text-center text-gray-500 py-10">No recent activity</div>
-             )
+          activities.length > 0 ? (
+            activities.slice(0, 5).map((activity, index) => (
+              <ActivityCard key={activity.id} activity={activity} index={index} />
+            ))
+          ) : (
+            <div className="text-center text-gray-500 py-10">No recent activity</div>
+          )
         )}
       </div>
-      
+
       <div className="text-center mt-10">
-        <a 
-            href={`https://github.com/${GITHUB_USERNAME}`} 
-            target="_blank" 
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-white/5 text-white hover:bg-white/10 hover:scale-105 transition-all duration-300 border border-white/5"
+        <a
+          href={`https://github.com/${GITHUB_USERNAME}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-white/5 text-white hover:bg-white/10 hover:scale-105 transition-all duration-300 border border-white/5"
         >
-            <FaGithub /> View Full Profile
+          <FaGithub /> View Full Profile
         </a>
       </div>
     </section>
